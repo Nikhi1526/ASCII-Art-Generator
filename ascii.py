@@ -1,0 +1,21 @@
+import os 
+import sys
+import cv2
+from PIL import Image
+
+# Ascii characters used to create the output 
+ASCII_CHARS = ["@", "#", "S", "%", "?", "*", "+", ";", ":", ",", "."]
+
+def resized_gray_image(image ,new_width=70):
+	width,height = image.size
+	aspect_ratio = height/width
+	new_height = int(aspect_ratio * new_width)
+	resized_gray_image = image.resize((new_width,new_height)).convert('L')
+	return resized_gray_image
+
+def pix2chars(image):
+	pixels = image.getdata()
+	characters = "".join([ASCII_CHARS[pixel//25] for pixel in pixels])
+	return characters
+
+
